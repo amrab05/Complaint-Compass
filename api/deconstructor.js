@@ -1,5 +1,6 @@
-// Complaint Compass AI Engine - api/deconstructor.js v1.2
-// FINAL PATCH: Implements aggressive JSON extraction.
+// Complaint Compass AI Engine - api/deconstructor.js v1.3 (Final)
+// Model: Updated to gemini-1.5-flash-latest for API compliance.
+// Logic: Retains aggressive JSON extraction for reliability.
 
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
@@ -14,7 +15,8 @@ export default async function handler(req, res) {
   }
 
   const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-  const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+  // --- FINAL FIX: Use the current, correct model name ---
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
 
   try {
     const { complaint } = req.body;
@@ -43,21 +45,17 @@ export default async function handler(req, res) {
     const response = await result.response;
     let text = response.text();
 
-    // --- AGGRESSIVE EXTRACTION (v1.2) ---
-    // Find the first '{' and the last '}' to carve out the JSON
-    // from any conversational text the model might have added.
+    // --- AGGRESSIVE EXTRACTION (v1.2 Logic - Retained) ---
     const startIndex = text.indexOf('{');
     const endIndex = text.lastIndexOf('}');
 
     if (startIndex === -1 || endIndex === -1) {
-        // If we can't find a JSON object at all, the AI has failed completely.
         console.error("AI response did not contain a JSON object. Response:", text);
         throw new Error("AI response did not contain a valid JSON object.");
     }
     
     const jsonString = text.substring(startIndex, endIndex + 1);
-
-    // Now, parse the surgically extracted string.
+    
     const parsedJson = JSON.parse(jsonString);
     res.status(200).json(parsedJson);
 
