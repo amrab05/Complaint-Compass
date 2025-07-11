@@ -12,14 +12,12 @@
 
     <header>
         <img src="logo.png" alt="Complaint Compass Logo" class="logo">
-        <h1>Complaint Compass</h1>
-        <p>Your AI-Powered De-escalation Co-Pilot</p>
     </header>
 
     <main>
         <section id="analyzer-section">
-            <h2>Analyze a Customer Complaint</h2>
-            <p>Paste the full text of a negative review or customer complaint below. Our AI will analyze the churn risk and suggest a reply using the L.E.A.P. framework.</p>
+            <h1>Stop Guessing. Start Understanding.</h1>
+            <p class="subtitle">A negative review isn't just a rating; it's a goldmine of data. Paste any customer complaint below to instantly deconstruct its root cause—for free.</p>
             
             <form id="complaint-form">
                 <textarea id="complaint-input" placeholder="e.g., 'I ordered a product two weeks ago and it still hasn't arrived. This is unacceptable! I want a full refund immediately.'" required></textarea>
@@ -31,31 +29,36 @@
 
             <div id="results-container" style="display: none;">
                 <h3>Analysis Complete:</h3>
+                
                 <div id="churn-meter-result" class="result-box">
-                    <h4><span class="icon">🌡️</span>Churn Meter</h4>
-                    <p id="churn-output"></p>
+                    <h4>Churn Meter</h4>
+                    <div class="meter-container">
+                        <div id="churn-meter-fill"></div>
+                    </div>
+                    <p id="churn-meter-text"></p> 
                 </div>
+
                 <div id="suggested-reply-result" class="result-box">
-                    <h4><span class="icon">💡</span>Suggested Reply (L.E.A.P. Framework)</h4>
+                    <h4>Suggested Reply (L.E.A.P. Framework)</h4>
                     <p id="reply-output"></p>
                 </div>
             </div>
 
+            <!-- New Lead Capture Form -->
+            <div id="lead-capture-section" style="display: none;">
+                <h3>Email the full breakdown to yourself—no spam, ever.</h3>
+                <form id="email-report-form">
+                    <input type="email" id="lead-email-input" name="email" required autocomplete="email" placeholder="you@company.com">
+                    <button type="submit" id="send-report-button">Send My Free Report →</button>
+                </form>
+                <p class="reassuring-text">We’ll send 1 follow-up with more free analysis tips. Unsubscribe any time.</p>
+            </div>
+             <!-- End New Lead Capture Form -->
+
             <div id="error-container" class="result-box error-box" style="display: none;">
-                <h4><span class="icon">⚠️</span> Analysis Failed</h4>
+                <h4>Analysis Failed</h4>
                 <p id="error-output"></p>
             </div>
-        </section>
-
-        <section id="lead-capture-section">
-            <h2>Unlock Your Full Potential</h2>
-            <p>Like this tool? Get in touch for a full audit of your customer support systems and customized AI solutions.</p>
-            <form action="https://formspree.io/f/xeokyveo" method="POST" id="contact-form">
-                <input type="text" name="name" placeholder="Your Name" required>
-                <input type="email" name="email" placeholder="Your Email" required>
-                <textarea name="message" placeholder="Tell us about your business goals..."></textarea>
-                <button type="submit">Request a Consultation</button>
-            </form>
         </section>
     </main>
 
@@ -64,4 +67,3 @@
     </footer>
 
 </body>
-</html>
