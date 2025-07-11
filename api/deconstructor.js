@@ -1,5 +1,5 @@
-// Complaint Compass AI Engine - api/deconstructor.js v1.1
-// Patched for improved JSON compliance.
+// Complaint Compass AI Engine - api/deconstructor.js v1.2
+// FINAL PATCH: Implements aggressive JSON extraction.
 
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
@@ -23,7 +23,6 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Invalid input: 'complaint' field is required." });
     }
 
-    // --- Fortified AI Prompt v1.1 ---
     const prompt = `
       You are an API endpoint that only returns JSON. Do not write any conversational text, preamble, or explanation. Your entire response must be a single, minified JSON object.
 
@@ -44,18 +43,26 @@ export default async function handler(req, res) {
     const response = await result.response;
     let text = response.text();
 
-    // --- Safeguard: Attempt to clean the response ---
-    // If the model wraps the JSON in markdown, extract it.
-    if (text.includes('```json')) {
-      text = text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1);
-    }
+    // --- AGGRESSIVE EXTRACTION (v1.2) ---
+    // Find the first '{' and the last '}' to carve out the JSON
+    // from any conversational text the model might have added.
+    const startIndex = text.indexOf('{');
+    const endIndex = text.lastIndexOf('}');
 
-    const parsedJson = JSON.parse(text);
+    if (startIndex === -1 || endIndex === -1) {
+        // If we can't find a JSON object at all, the AI has failed completely.
+        console.error("AI response did not contain a JSON object. Response:", text);
+        throw new Error("AI response did not contain a valid JSON object.");
+    }
+    
+    const jsonString = text.substring(startIndex, endIndex + 1);
+
+    // Now, parse the surgically extracted string.
+    const parsedJson = JSON.parse(jsonString);
     res.status(200).json(parsedJson);
 
   } catch (error) {
     console.error("Error during AI analysis:", error);
-    // Provide a more specific error for easier debugging.
     res.status(500).json({ error: `AI model returned invalid data or an error occurred. Details: ${error.message}` });
   }
 }
