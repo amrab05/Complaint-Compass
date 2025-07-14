@@ -1,9 +1,10 @@
 {
   "name": "complaint-compass",
-  "version": "1.0.0",
-  "description": "AI-powered customer complaint analysis tool.",
+  "version": "2.0.0",
+  "description": "AI-powered customer complaint analysis tool with email reporting.",
   "private": true,
   "dependencies": {
-    "@google/generative-ai": "^0.14.1"
+    "@google/generative-ai": "^0.14.1",
+    "postmark": "^4.0.2"
   }
 }

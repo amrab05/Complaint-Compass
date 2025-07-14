@@ -1,3 +1,5 @@
+// Complaint Compass - script.js (v3.0 - Final with Email Integration)
+
 document.addEventListener('DOMContentLoaded', () => {
     // --- UI Elements ---
     const complaintForm = document.getElementById('complaint-form');
@@ -9,13 +11,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultsContainer = document.getElementById('results-container');
     const leadCaptureSection = document.getElementById('lead-capture-section');
     
-    // Result-specific elements
-    const churnMeterFill = document.getElementById('churn-meter-fill');
     const churnMeterText = document.getElementById('churn-meter-text');
+    const churnMeterFill = document.getElementById('churn-meter-fill');
     const replyOutput = document.getElementById('reply-output');
 
     const errorContainer = document.getElementById('error-container');
     const errorOutput = document.getElementById('error-output');
+
+    // New Email Form Elements
+    const emailReportForm = document.getElementById('email-report-form');
+    const leadEmailInput = document.getElementById('lead-email-input');
+    const sendReportButton = document.getElementById('send-report-button');
 
     // --- Event Listener for AI Analysis ---
     complaintForm.addEventListener('submit', async (e) => {
@@ -23,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const complaintText = complaintInput.value.trim();
         if (!complaintText) return;
 
-        // --- Start Loading State ---
         setLoadingState(true);
 
         try {
@@ -48,13 +53,51 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // --- *** NEW: Event Listener for Email Form Submission *** ---
+    emailReportForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const leadEmail = leadEmailInput.value.trim();
+        if (!leadEmail) {
+            alert('Please enter a valid email address.');
+            return;
+        }
+
+        sendReportButton.disabled = true;
+        sendReportButton.textContent = 'Sending...';
+
+        try {
+            // Gather the report data from the screen
+            const reportData = {
+                churnMeterText: churnMeterText.textContent,
+                suggestedReply: replyOutput.textContent
+            };
+
+            const response = await fetch('/api/send-report', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ leadEmail, reportData })
+            });
+
+            if (!response.ok) {
+                throw new Error('The mail server failed to send the report.');
+            }
+
+            // Success! Show a thank you message.
+            leadCaptureSection.innerHTML = '<h3>🎉 Report on its way!</h3><p>Check your spam folder if you don’t see it in the next minute.</p>';
+
+        } catch (error) {
+            alert(`Error: ${error.message}`);
+            sendReportButton.disabled = false;
+            sendReportButton.textContent = 'Send My Free Report →';
+        }
+    });
+
+
     // --- Helper Functions ---
     function setLoadingState(isLoading) {
         analyzeButton.disabled = isLoading;
         buttonText.textContent = isLoading ? 'Analyzing...' : 'Analyze Complaint';
         spinner.style.display = isLoading ? 'block' : 'none';
-        
-        // Hide previous results on new analysis
         if (isLoading) {
             resultsContainer.style.display = 'none';
             leadCaptureSection.style.display = 'none';
@@ -63,22 +106,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function populateResults(data) {
-        // Populate Churn Meter
         const score = data.churnMeter.score;
         const percentage = (score / 10) * 100;
         churnMeterFill.style.width = `${percentage}%`;
-
-        churnMeterFill.className = 'churn-meter-fill'; // Reset classes
+        churnMeterFill.className = 'churn-meter-fill';
         if (score <= 4) churnMeterFill.classList.add('churn-low');
         else if (score <= 7) churnMeterFill.classList.add('churn-medium');
         else churnMeterFill.classList.add('churn-high');
-        
         churnMeterText.textContent = `Score: ${score}/10 - ${data.churnMeter.reasoning}`;
-
-        // Populate Suggested Reply
         replyOutput.textContent = data.suggestedReply;
-        
-        // Show the results
         resultsContainer.style.display = 'block';
         leadCaptureSection.style.display = 'block';
     }
@@ -87,6 +123,4 @@ document.addEventListener('DOMContentLoaded', () => {
         errorOutput.textContent = `An error occurred during analysis. Please try again later. Details: ${message}`;
         errorContainer.style.display = 'block';
     }
-
-    // NOTE: Logic for the new email-report-form will be added in Phase 2.
 });
