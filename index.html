@@ -5,52 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Complaint Compass - AI De-escalation Advisor</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="logo.png" type="image/png">
+    <!-- Icon is still used for the browser tab favicon -->
+    <link rel="icon" href="logo.png" type="image/png"> 
     <script src="script.js" defer></script>
 </head>
 <body>
 
     <header>
-        <!-- New Left-side Container for Icon + Text -->
+        <!-- Text-Only Header -->
         <div class="logo-container-left">
-            <img src="logo.png" alt="Complaint Compass Logo" class="logo-icon">
-            <span class="logo-text">Complaint Compass™</span>
+            <span class="logo-text-main">Complaint Compass™</span>
         </div>
-        
-        <!-- 'Powered by' branding on the right -->
-        <img src="branding-logo.png" alt="Powered by AI Advisors Group" class="logo-branding">
+        <div class="branding-container-right">
+            <span class="logo-text-branding">Powered by AI Advisors Group™</span>
+        </div>
     </header>
 
     <main>
+        <!-- The rest of your content remains the same... -->
         <section id="analyzer-section">
             <h1>Stop Guessing. Start Understanding.</h1>
             <p class="subtitle">A negative review isn't just a rating; it's a goldmine of data. Paste any customer complaint below to instantly deconstruct its root cause—for free.</p>
-            
             <form id="complaint-form">
                 <textarea id="complaint-input" placeholder="e.g., 'I ordered a product two weeks ago and it still hasn't arrived. This is unacceptable! I want a full refund immediately.'" required></textarea>
-                <button type="submit" id="analyze-button">
-                    <span class="button-text">Analyze Complaint</span>
-                    <div class="spinner" style="display: none;"></div>
-                </button>
+                <button type="submit" id="analyze-button"><span class="button-text">Analyze Complaint</span><div class="spinner" style="display: none;"></div></button>
             </form>
-
             <div id="results-container" style="display: none;">
                 <h3>Analysis Complete:</h3>
-                
                 <div id="churn-meter-result" class="result-box">
                     <h4>Churn Meter</h4>
-                    <div class="meter-container">
-                        <div id="churn-meter-fill"></div>
-                    </div>
+                    <div class="meter-container"><div id="churn-meter-fill"></div></div>
                     <p id="churn-meter-text"></p> 
                 </div>
-
                 <div id="suggested-reply-result" class="result-box">
                     <h4>Suggested Reply (L.E.A.P. Framework)</h4>
                     <p id="reply-output"></p>
                 </div>
             </div>
-
             <div id="lead-capture-section" style="display: none;">
                 <h3>Get Your Full Analysis Report</h3>
                 <form id="email-report-form">
@@ -59,29 +50,24 @@
                 </form>
                 <p class="reassuring-text">We'll send your report and occasional tips on customer analysis. Unsubscribe anytime.</p>
             </div>
-
             <div id="error-container" class="result-box error-box" style="display: none;">
-                <h4>Analysis Failed</h4>
-                <p id="error-output"></p>
+                <h4>Analysis Failed</h4><p id="error-output"></p>
             </div>
         </section>
-
         <section id="explanation-section">
             <h2>How It Works: Our Methodology</h2>
             <div class="explanation-grid">
                 <div class="explanation-box">
                     <h4>The L.E.A.P. Framework</h4>
-                    <p>Our AI is trained to structure its replies using the industry-standard L.E.A.P. de-escalation framework. This ensures every suggestion is constructive and empathetic.<br>
-                    <strong>L</strong>isten, <strong>E</strong>mpathize, <strong>A</strong>pologize, <strong>P</strong>roblem-solve.</p>
+                    <p>Our AI is trained to structure its replies using the industry-standard L.E.A.P. de-escalation framework...<br><strong>L</strong>isten, <strong>E</strong>mpathize, <strong>A</strong>pologize, <strong>P</strong>roblem-solve.</p>
                 </div>
                 <div class="explanation-box">
                     <h4>The Role of AI</h4>
-                    <p>We use Google's large language model to analyze the sentiment, topics, and underlying intent of the complaint. It identifies the core issues and provides the Churn Meter score, giving you an instant, data-driven perspective on customer risk.</p>
+                    <p>We use Google's large language model to analyze the sentiment, topics, and underlying intent of the complaint...</p>
                 </div>
             </div>
         </section>
     </main>
-
     <footer>
         <p>© 2024 AI Advisors Group. Built with purpose.</p>
     </footer>

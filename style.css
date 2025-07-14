@@ -1,53 +1,30 @@
-/* Complaint Compass - style.css (v2.3.2 - Final Header Sizing) */
-
+/* Complaint Compass - style.css (v5.0 - Text-Only Header) */
 :root {
-    --bg-main: #f4f7f9;
-    --bg-container: #ffffff;
-    --text-dark: #2d3748;
-    --text-light: #718096;
-    --accent-green: #38a169;
-    --accent-green-hover: #2f855a;
-    --logo-purple: #4c3c7a;
-    --border-color: #e2e8f0;
-    --error-red: #e53e3e;
+    --bg-main: #f4f7f9; --bg-container: #ffffff; --text-dark: #2d3748;
+    --text-light: #718096; --accent-green: #38a169; --accent-green-hover: #2f855a;
+    --logo-purple: #4c3c7a; --border-color: #e2e8f0; --error-red: #e53e3e;
     --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     --shadow: 0 4px 6px rgba(0,0,0,0.05);
 }
-
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: var(--font-family); background-color: var(--bg-main); color: var(--text-dark); line-height: 1.6; }
 
-/* --- HEADER LAYOUT WITH FORCED SIZING --- */
+/* --- TEXT-ONLY HEADER STYLES --- */
 header {
-    background-color: var(--bg-container);
-    padding: 1rem 2rem;
-    border-bottom: 1px solid var(--border-color);
-    box-shadow: var(--shadow);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    background-color: var(--bg-container); padding: 1.25rem 2rem;
+    border-bottom: 1px solid var(--border-color); box-shadow: var(--shadow);
+    display: flex; align-items: center; justify-content: space-between;
 }
-header .logo-container-left {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
+.logo-text-main {
+    font-size: 1.75rem; font-weight: 700; color: var(--logo-purple);
 }
-header .logo-icon {
-    height: 55px !important; /* Forceful sizing */
-    width: auto !important;
+.logo-text-branding {
+    font-size: 1rem; font-weight: 500; color: var(--text-light);
 }
-header .logo-text {
-    font-size: 1.6rem !important;
-    font-weight: 600;
-    color: var(--logo-purple);
-}
-header .logo-branding {
-    height: 50px !important; /* Forceful sizing */
-    width: auto !important;
-}
-/* --- END HEADER LAYOUT FIXES --- */
+/* --- END TEXT-ONLY HEADER STYLES --- */
 
 main { max-width: 800px; margin: 2rem auto; padding: 0 1rem; display: flex; flex-direction: column; gap: 2rem; }
+/* ... (rest of the CSS remains the same) ... */
 #analyzer-section, #explanation-section { background-color: var(--bg-container); padding: 2.5rem; border-radius: 8px; box-shadow: var(--shadow); }
 h1 { font-size: 2rem; text-align: center; margin-bottom: 0.5rem; }
 .subtitle { text-align: center; color: var(--text-light); margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; }
@@ -65,9 +42,7 @@ h4 { margin-bottom: 0.75rem; }
 .result-box p { margin: 0; white-space: pre-wrap; }
 .meter-container { width: 100%; height: 20px; background-color: var(--border-color); border-radius: 10px; overflow: hidden; margin-bottom: 0.5rem; }
 #churn-meter-fill { height: 100%; width: 0%; border-radius: 10px; transition: width 0.5s ease-in-out, background-color 0.5s ease-in-out; }
-.churn-low { background-color: #48bb78; }
-.churn-medium { background-color: #ecc94b; }
-.churn-high { background-color: #f56565; }
+.churn-low { background-color: #48bb78; } .churn-medium { background-color: #ecc94b; } .churn-high { background-color: #f56565; }
 #churn-meter-text { font-weight: bold; }
 #lead-capture-section { text-align: center; padding-top: 2rem; border-top: 2px dashed var(--border-color); }
 #lead-capture-section h3 { border-bottom: none; margin-bottom: 1.5rem; }
@@ -77,11 +52,7 @@ h4 { margin-bottom: 0.75rem; }
 .explanation-box { padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 6px; }
 .explanation-box h4 { border-left: 3px solid var(--accent-green); padding-left: 0.75rem; }
 .explanation-box p { color: var(--text-light); font-size: 0.95rem; }
-@media (max-width: 768px) {
-    .explanation-grid { grid-template-columns: 1fr; }
-    .logo-text { display: none; }
-    header { padding: 0.5rem 1rem; }
-}
+@media (max-width: 768px) { .explanation-grid { grid-template-columns: 1fr; } .logo-text-branding { display: none; } }
 .spinner { border: 3px solid rgba(0, 0, 0, 0.2); border-radius: 50%; border-top: 3px solid #fff; width: 20px; height: 20px; animation: spin 1s linear infinite; margin-left: 10px; }
 .error-box { border-left: 3px solid var(--error-red); }
 footer { text-align: center; padding: 2rem 1rem; color: var(--text-light); font-size: 0.9rem; }
