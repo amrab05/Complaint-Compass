@@ -11,7 +11,14 @@
 <body>
 
     <header>
-        <img src="logo.png" alt="Complaint Compass Logo" class="logo">
+        <!-- New Left-side Container for Icon + Text -->
+        <div class="logo-container-left">
+            <img src="logo.png" alt="Complaint Compass Logo" class="logo-icon">
+            <span class="logo-text">Complaint Compass™</span>
+        </div>
+        
+        <!-- 'Powered by' branding on the right -->
+        <img src="branding-logo.png" alt="Powered by AI Advisors Group" class="logo-branding">
     </header>
 
     <main>
@@ -44,20 +51,33 @@
                 </div>
             </div>
 
-            <!-- New Lead Capture Form -->
             <div id="lead-capture-section" style="display: none;">
-                <h3>Email the full breakdown to yourself—no spam, ever.</h3>
+                <h3>Get Your Full Analysis Report</h3>
                 <form id="email-report-form">
                     <input type="email" id="lead-email-input" name="email" required autocomplete="email" placeholder="you@company.com">
                     <button type="submit" id="send-report-button">Send My Free Report →</button>
                 </form>
-                <p class="reassuring-text">We’ll send 1 follow-up with more free analysis tips. Unsubscribe any time.</p>
+                <p class="reassuring-text">We'll send your report and occasional tips on customer analysis. Unsubscribe anytime.</p>
             </div>
-             <!-- End New Lead Capture Form -->
 
             <div id="error-container" class="result-box error-box" style="display: none;">
                 <h4>Analysis Failed</h4>
                 <p id="error-output"></p>
+            </div>
+        </section>
+
+        <section id="explanation-section">
+            <h2>How It Works: Our Methodology</h2>
+            <div class="explanation-grid">
+                <div class="explanation-box">
+                    <h4>The L.E.A.P. Framework</h4>
+                    <p>Our AI is trained to structure its replies using the industry-standard L.E.A.P. de-escalation framework. This ensures every suggestion is constructive and empathetic.<br>
+                    <strong>L</strong>isten, <strong>E</strong>mpathize, <strong>A</strong>pologize, <strong>P</strong>roblem-solve.</p>
+                </div>
+                <div class="explanation-box">
+                    <h4>The Role of AI</h4>
+                    <p>We use Google's large language model to analyze the sentiment, topics, and underlying intent of the complaint. It identifies the core issues and provides the Churn Meter score, giving you an instant, data-driven perspective on customer risk.</p>
+                </div>
             </div>
         </section>
     </main>
@@ -67,3 +87,4 @@
     </footer>
 
 </body>
+</html>
